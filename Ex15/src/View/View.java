@@ -26,7 +26,8 @@ public class View {
         System.out.println("\t7: Search student have last semester point over 8.0");
         System.out.println("\t8: Search student have the highest semester point");
         System.out.println("\t9: Show by entry year");
-        System.out.println("\t10: Exit");
+        System.out.println("\t10: Count by entry year");
+        System.out.println("\t11: Exit");
     }
 
     /*********************************
