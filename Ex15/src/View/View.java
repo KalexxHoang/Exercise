@@ -1,5 +1,8 @@
 package View;
 
+import Controller.Check;
+import Model.Exception.InvalidDOBException;
+import Model.Exception.InvalidFullNameException;
 import Model.School.School;
 import Model.Student.ServiceStudent;
 import Model.Student.Student;
@@ -16,9 +19,12 @@ public class View {
         System.out.println("Menu:");
         System.out.println("\t1: Add student");
         System.out.println("\t2: Check standard student");
-        System.out.println("\t3: Modify clients information");
-        System.out.println("\t4: Compute electricity money that client must pay");
-        System.out.println("\t5: Exit");
+        System.out.println("\t3: Count standard student");
+        System.out.println("\t4: Search semester point");
+        System.out.println("\t5: Show the highest entry point");
+        System.out.println("\t6: Search service student");
+        System.out.println("\t7: Search student have last semester point over 8.0");
+        System.out.println("\t8: Search student have the highest semester point");
     }
 
     /*********************************
@@ -31,16 +37,27 @@ public class View {
     }
 
     /*********************************
+     *       printReplaceOption      *
+     *********************************/
+    public void printReplaceOption() {
+        System.out.println("This student ID already exist! Do you want to replace?");
+        System.out.println("\t1: Yes");
+        System.out.println("\t2: No");
+    }
+
+    /*********************************
      *         createStudent         *
      *********************************/
-    public Student createStudent() {
+    public Student createStudent() throws InvalidFullNameException, InvalidDOBException {
         String studentID = this.inputStudentID();
 
         System.out.println("Full name: ");
         String fullName = new Scanner(System.in).nextLine();
+        Check.checkFullName(fullName);
 
         System.out.println("Birthday: ");
         String birthDay = new Scanner(System.in).nextLine();
+        Check.checkDOB(birthDay);
 
         System.out.println("Entry year: ");
         int entryYear = new Scanner(System.in).nextInt();
@@ -109,13 +126,40 @@ public class View {
     }
 
     /*********************************
-     *     searchHighestPoint       *
+     *     searchHighestEntryPoint   *
      *********************************/
-    public void searchHighestPoint(List<School> schoolList) {
+    public void searchHighestEntryPoint(List<School> schoolList) {
         System.out.println("The highest entry point:");
         for (School school : schoolList) {
             System.out.println(school.getSchoolName());
             System.out.println("\t" + school.sortStudent().get(0).getFullName() + ": " + school.sortStudent().get(0).getEntryPoint());
         }
+    }
+
+    /*********************************
+     *      showServiceStudent       *
+     *********************************/
+    public void showServiceStudent(School school, List<Student> searchedList) {
+        System.out.println("--------------" + school.getSchoolName() + "--------------");
+        for (Student student : searchedList) {
+            System.out.println(student.getFullName());
+        }
+        System.out.println("-----------------------------------------------------------");
+    }
+
+    /*********************************
+     *         showPointOver8        *
+     *********************************/
+    public void showPointOver8(School school, List<Student> overList) {
+        System.out.println("--------------" + school.getSchoolName() + "--------------");
+        if (overList.isEmpty())
+            System.out.println("No student!");
+        else
+            for (Student student : overList) {
+                System.out.println(student.getFullName() + ": "
+                        + student.getLastSemester() + " - "
+                        + student.getLastSemesterPoint(student.getLastSemester()));
+            }
+        System.out.println("-----------------------------------------------------------");
     }
 }

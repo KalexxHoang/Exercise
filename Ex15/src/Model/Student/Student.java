@@ -1,7 +1,6 @@
 package Model.Student;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Student {
     /**********************************
@@ -115,5 +114,22 @@ public class Student {
         for (Map.Entry<Integer,Double> point : pointMap.entrySet()) {
             System.out.println("Semester " + point.getKey() + ": " + point.getValue());
         }
+    }
+
+    /*********************************
+     *     getLastSemesterPoint      *
+     *********************************/
+    public int getLastSemester() {
+        List<Integer> semesterList = new ArrayList<>();
+        for (Map.Entry<Integer,Double> point : pointMap.entrySet()) {
+            semesterList.add(point.getKey());
+        }
+
+        Collections.sort(semesterList);
+        return semesterList.get(semesterList.size() - 1);
+    }
+
+    public Double getLastSemesterPoint(int lastSemester) {
+        return this.pointMap.get(lastSemester);
     }
 }

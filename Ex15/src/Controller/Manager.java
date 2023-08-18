@@ -1,11 +1,14 @@
 package Controller;
 
+import Model.Exception.InvalidDOBException;
+import Model.Exception.InvalidFullNameException;
 import Model.School.School;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import Model.Student.ServiceStudent;
 import Model.Student.Student;
@@ -31,7 +34,7 @@ public class Manager {
     /*********************************
      *            Menu               *
      *********************************/
-    public void userMenu(){
+    public void userMenu() throws InvalidFullNameException, InvalidDOBException {
         int menuOp;
         boolean condition = true;
         while (condition){
@@ -53,6 +56,22 @@ public class Manager {
 
                 case SEARCH_POINT:
                     searchSemesterPoint();
+                    break;
+
+                case SHOW_HIGHEST_POINT:
+                    view.searchHighestEntryPoint(this.schoolList);
+                    break;
+
+                case SEARCH_SERVICE_STUDENT:
+                    searchServiceStudentByTranningLink();
+                    break;
+
+                case SEARCH_POINT_OVER8:
+                    searchPointOver8();
+                    break;
+
+                case SEARCH_HIGHEST_SEMESTER_POINT:
+
                     break;
 
                 case EXIT:
@@ -80,7 +99,7 @@ public class Manager {
         }
     }
 
-    public void inputStudent() {
+    public void inputStudent() throws InvalidFullNameException, InvalidDOBException {
         view.printStudentOption();
 
         int studentOption = new Scanner(System.in).nextInt();
@@ -163,7 +182,6 @@ public class Manager {
 
     public void searchPoint(Student student) {
         int semester = view.inputSemester();
-
         view.showSemesterGPA(student,semester);
     }
 
@@ -178,4 +196,40 @@ public class Manager {
             searchPoint(checkResult);
         }
     }
+
+    /**********************************************
+     *    searchServiceStudentByTranningLink      *
+     **********************************************/
+    public void searchServiceStudentByTranningLink() {
+        String trainningLink = view.inputTrainningLink();
+
+        for (School school : this.schoolList) {
+            List<Student> serviceStudentList = school.getStudentSet().stream()
+                    .filter(item -> item instanceof ServiceStudent)
+                    .toList();
+            if (serviceStudentList.isEmpty())
+                continue;
+            List<Student> searchedList = serviceStudentList.stream()
+                    .filter(item -> ((ServiceStudent) item).getTrainningLink().contains(trainningLink))
+                    .toList();
+            view.showServiceStudent(school,searchedList);
+        }
+    }
+
+    /*********************************
+     *        searchPointOver8       *
+     *********************************/
+    public void searchPointOver8() {
+        for (School school : this.schoolList) {
+            List<Student> overList = school.getStudentSet().stream()
+                    .filter(item -> item.getLastSemesterPoint(item.getLastSemester()) >= 8.0)
+                    .toList();
+
+            view.showPointOver8(school,overList);
+        }
+    }
+
+    /*********************************
+     *   searchHighestSemesterPoint  *
+     *********************************/
 }

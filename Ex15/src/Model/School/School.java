@@ -1,6 +1,7 @@
 package Model.School;
 
 import Model.Student.Student;
+import View.View;
 
 import java.util.*;
 
@@ -10,6 +11,7 @@ public class School {
      **********************************/
     private String schoolName;
     private Set<Student> studentSet;
+    private View view;
 
     /*********************************
      *            Constructor        *
@@ -17,6 +19,7 @@ public class School {
     public School(String schoolName) {
         this.schoolName = schoolName;
         this.studentSet = new LinkedHashSet<>();
+        this.view = new View();
     }
 
     /*********************************
@@ -47,10 +50,7 @@ public class School {
                 .findFirst();
 
         if (check.isPresent()) {
-            System.out.println("This student ID already exist! Do you want to replace?");
-            System.out.println("\t1: Yes");
-            System.out.println("\t2: No");
-
+            view.printReplaceOption();
             int option = new Scanner(System.in).nextInt();
 
             switch (option) {
