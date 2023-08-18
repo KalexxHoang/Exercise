@@ -132,4 +132,16 @@ public class Student {
     public Double getLastSemesterPoint(int lastSemester) {
         return this.pointMap.get(lastSemester);
     }
+
+    /*********************************
+     *   searchHighestSemesterPoint  *
+     *********************************/
+    public double searchHighestSemesterPoint() {
+        List<Double> pointList = new ArrayList<>();
+        for (Map.Entry<Integer,Double> point : pointMap.entrySet()) {
+            pointList.add(point.getValue());
+        }
+        Collections.sort(pointList);
+        return pointList.get(pointList.size() - 1);
+    }
 }

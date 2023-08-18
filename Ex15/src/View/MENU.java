@@ -9,6 +9,8 @@ public enum MENU {
     SEARCH_SERVICE_STUDENT,
     SEARCH_POINT_OVER8,
     SEARCH_HIGHEST_SEMESTER_POINT,
+    SHOW_BY_ENTRY_YEAR,
+    COUNT_BY_ENTRY_YEAR,
     EXIT;
 
     public static MENU getEnumMenu(int ordinal){

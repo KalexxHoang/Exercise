@@ -4,6 +4,7 @@ import Model.Student.Student;
 import View.View;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class School {
     /**********************************
@@ -82,5 +83,55 @@ public class School {
             }
         });
         return studentList;
+    }
+
+    /*********************************
+     *   searchHighestSemesterPoint  *
+     *********************************/
+    public Student searchHighestSemesterPoint() {
+        List<Student> studentList = new ArrayList<>(this.studentSet);
+
+        Collections.sort(studentList, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                if (o1.searchHighestSemesterPoint() > o2.searchHighestSemesterPoint())
+                    return -1;
+                else if (o1.searchHighestSemesterPoint() < o2.searchHighestSemesterPoint())
+                    return 1;
+                else
+                    return o1.getFullName().compareTo(o2.getFullName());
+            }
+        });
+        return studentList.get(0);
+    }
+
+    /*********************************
+     *         sortEntryYear         *
+     *********************************/
+    public List<Student> sortEntryYear() {
+        List<Student> studentList = new ArrayList<>(this.studentSet);
+
+        Collections.sort(studentList, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                if (o1.getEntryYear() > o2.getEntryYear())
+                    return -1;
+                else if (o1.getEntryYear() < o2.getEntryYear())
+                    return 1;
+                else
+                    return o1.getFullName().compareTo(o2.getFullName());
+            }
+        });
+        return studentList;
+    }
+
+    /*********************************
+     *        countByEntryYear       *
+     *********************************/
+    public int countByEntryYear(int entryYear) {
+        List<Student> studentList = this.studentSet.stream()
+                .filter(item -> item.getEntryYear() == entryYear)
+                .toList();
+        return studentList.size();
     }
 }

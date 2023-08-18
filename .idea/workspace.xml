@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25c0f91c-6b6a-47e3-9122-e62ec20118d4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Ex15/src/Controller/Check.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ex15/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex15/src/Controller/Manager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ex15/src/Model/School/School.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex15/src/Model/School/School.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ex15/src/Model/Student/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex15/src/Model/Student/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ex15/src/View/MENU.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex15/src/View/MENU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex15/src/View/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex15/src/View/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ex15/src/View/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex15/src/View/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

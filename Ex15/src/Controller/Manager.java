@@ -71,7 +71,15 @@ public class Manager {
                     break;
 
                 case SEARCH_HIGHEST_SEMESTER_POINT:
+                    searchHighestSemesterPoint();
+                    break;
 
+                case SHOW_BY_ENTRY_YEAR:
+                    showByEntryYear();
+                    break;
+
+                case COUNT_BY_ENTRY_YEAR:
+                    countByEntryYear();
                     break;
 
                 case EXIT:
@@ -232,4 +240,28 @@ public class Manager {
     /*********************************
      *   searchHighestSemesterPoint  *
      *********************************/
+    public void searchHighestSemesterPoint() {
+        for (School school : this.schoolList) {
+            view.showHighestSemesterPoint(school,school.searchHighestSemesterPoint());
+        }
+    }
+
+    /*********************************
+     *        showByEntryYear        *
+     *********************************/
+    public void showByEntryYear() {
+        for (School school : this.schoolList) {
+            view.showByEntryYear(school,school.sortEntryYear());
+        }
+    }
+
+    /*********************************
+     *        countByEntryYear       *
+     *********************************/
+    public void countByEntryYear() {
+        int entryYear = view.inputEntryYear();
+        for (School school : this.schoolList) {
+            view.countByEntryYear(school,entryYear,school.countByEntryYear(entryYear));
+        }
+    }
 }

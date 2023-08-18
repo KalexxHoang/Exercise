@@ -25,6 +25,8 @@ public class View {
         System.out.println("\t6: Search service student");
         System.out.println("\t7: Search student have last semester point over 8.0");
         System.out.println("\t8: Search student have the highest semester point");
+        System.out.println("\t9: Show by entry year");
+        System.out.println("\t10: Exit");
     }
 
     /*********************************
@@ -59,8 +61,7 @@ public class View {
         String birthDay = new Scanner(System.in).nextLine();
         Check.checkDOB(birthDay);
 
-        System.out.println("Entry year: ");
-        int entryYear = new Scanner(System.in).nextInt();
+        int entryYear = this.inputEntryYear();
 
         System.out.println("Entry point: ");
         double entryPoint = new Scanner(System.in).nextDouble();
@@ -88,6 +89,11 @@ public class View {
 
     public int inputSemester() {
         System.out.println("Semester: ");
+        return new Scanner(System.in).nextInt();
+    }
+
+    public int inputEntryYear() {
+        System.out.println("Entry year: ");
         return new Scanner(System.in).nextInt();
     }
 
@@ -160,6 +166,35 @@ public class View {
                         + student.getLastSemester() + " - "
                         + student.getLastSemesterPoint(student.getLastSemester()));
             }
+        System.out.println("-----------------------------------------------------------");
+    }
+
+    /*********************************
+     *    showHighestSemesterPoint   *
+     *********************************/
+    public void showHighestSemesterPoint(School school, Student student) {
+        System.out.println("--------------" + school.getSchoolName() + "--------------");
+        System.out.println(student.getFullName() + ": " + student.searchHighestSemesterPoint());
+        System.out.println("-----------------------------------------------------------");
+    }
+
+    /*********************************
+     *        showByEntryYear        *
+     *********************************/
+    public void showByEntryYear(School school, List<Student> studentList) {
+        System.out.println("--------------" + school.getSchoolName() + "--------------");
+        for (Student student : studentList) {
+            System.out.println(student.getFullName() + ": " + student.getEntryYear());
+        }
+        System.out.println("-----------------------------------------------------------");
+    }
+
+    /*********************************
+     *        countByEntryYear       *
+     *********************************/
+    public void countByEntryYear(School school, int entryYear, int count) {
+        System.out.println("--------------" + school.getSchoolName() + "--------------");
+        System.out.println(entryYear + ": " + count + " students");
         System.out.println("-----------------------------------------------------------");
     }
 }
