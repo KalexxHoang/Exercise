@@ -13,17 +13,20 @@ import java.util.stream.Collectors;
 import View.GRADE_LEVEL;
 import View.MENU;
 import View.SHOW;
+import View.View;
 
 public class Manager {
     /**********************************
      *            Attribute           *
      **********************************/
     private List<Student> studentList;
+    private View view;
 
     /*********************************
      *            Constructor        *
      *********************************/
     public Manager() {
+        this.view = new View();
         this.studentList = new LinkedList<>();
     }
 
@@ -34,7 +37,7 @@ public class Manager {
         int menuOp;
         boolean condition = true;
         while (condition){
-            printMenu();
+            view.printMenu();
             menuOp = new Scanner(System.in).nextInt();
             MENU menu = MENU.getEnumMenu(menuOp);
             switch (menu){
@@ -59,68 +62,33 @@ public class Manager {
     }
 
     /*********************************
-     *            printMenu          *
-     *********************************/
-    public void printMenu(){
-        System.out.println("Menu:");
-        System.out.println("\t1: Add student");
-        System.out.println("\t2: Show choosed candidates");
-        System.out.println("\t3: Show total candidates list");
-        System.out.println("\t4: Exit");
-    }
-
-    /*********************************
      *            addStudent         *
      *********************************/
     public void addStudent() throws InvalidFullNameException, InvalidDOBException, InvalidPhoneNumberException {
-        System.out.println("Please enter information of student you want to add:");
-        System.out.println("Full name: ");
-        String fullName = new Scanner(System.in).nextLine();
-        Check.checkFullName(fullName);
+        Student student = view.addStudent();
 
-        System.out.println("Date of Birth: ");
-        String doB = new Scanner(System.in).nextLine();
-        Check.checkDOB(doB);
-
-        System.out.println("Sex: ");
-        String sex = new Scanner(System.in).nextLine();
-
-        System.out.println("Phone number: ");
-        String phoneNumber = new Scanner(System.in).nextLine();
-        Check.checkPhoneNumber(phoneNumber);
-
-        System.out.println("University: ");
-        String university = new Scanner(System.in).nextLine();
-
-        System.out.println("Grade level: ");
-        System.out.println("\t1: Good");
-        System.out.println("\t2: Normal");
-
+        view.printGradeOption();
         int levelOption = new Scanner(System.in).nextInt();
         GRADE_LEVEL opt = GRADE_LEVEL.getEnumGradeLevel(levelOption);
 
         switch (opt) {
             case GOOD:
-                System.out.println("GPA: ");
-                double GPA = new Scanner(System.in).nextDouble();
+                double GPA = view.inputGPA();
+                String bestRewardName = view.inputBestRewardName();
 
-                System.out.println("Best reward: ");
-                String bestRewardName = new Scanner(System.in).nextLine();
-
-                Student goodStudent = new GoodStudent(fullName,doB,sex,phoneNumber,university,GRADE_LEVEL.getString(GRADE_LEVEL.GOOD),
+                Student goodStudent = new GoodStudent(student.getFullName(),student.getDoB(),student.getSex(), student.getPhoneNumber(),
+                                                      student.getUniversity(),GRADE_LEVEL.getString(GRADE_LEVEL.GOOD),
                                                       GPA,bestRewardName);
                 this.studentList.add(goodStudent);
                 break;
 
             case NORMAL:
-                System.out.println("Toeic: ");
-                int englishScore = new Scanner(System.in).nextInt();
+                int englishScore = view.inputEnglishScore();
+                double entryTestScore = view.inputEntryScore();
 
-                System.out.println("Entry test score: ");
-                double entryTestScore = new Scanner(System.in).nextDouble();
-
-                Student normalStudent = new NormalStudent(fullName,doB,sex,phoneNumber,university,GRADE_LEVEL.getString(GRADE_LEVEL.NORMAL),
-                        englishScore,entryTestScore);
+                Student normalStudent = new NormalStudent(student.getFullName(),student.getDoB(),student.getSex(), student.getPhoneNumber(),
+                                                          student.getUniversity(),GRADE_LEVEL.getString(GRADE_LEVEL.NORMAL),
+                                                          englishScore,entryTestScore);
                 this.studentList.add(normalStudent);
                 break;
         }
@@ -178,8 +146,7 @@ public class Manager {
     }
 
     public List<Student> chooseCandidate() {
-        System.out.println("Please enter quantity of candidate (11 <= n <= 15) you want to choose: ");
-        int numberCandidate = new Scanner(System.in).nextInt();
+        int numberCandidate = view.inputQuantity();
 
         List<Student> goodList = sortGoodList(filtGood());
         List<Student> normalList = sortNormalStudent(filtNormal());
@@ -224,9 +191,7 @@ public class Manager {
     }
 
     public void showBy() {
-        System.out.println("Do you want to show by?");
-        System.out.println("\t1: Full name");
-        System.out.println("\t2: Phone number");
+        view.printShowOption();
 
         int showOpt = new Scanner(System.in).nextInt();
         SHOW opt = SHOW.getEnumMenu(showOpt);

@@ -10,17 +10,20 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import View.MENU;
+import View.View;
 
 public class Manager {
     /**********************************
      *            Attribute           *
      **********************************/
     private School school;
+    private View view;
 
     /*********************************
      *            Constructor        *
      *********************************/
     public Manager() {
+        this.view = new View();
         this.school = new School();
     }
 
@@ -31,7 +34,7 @@ public class Manager {
         int menuOp;
         boolean condition = true;
         while (condition){
-            printMenu();
+            view.printMenu();
             menuOp = new Scanner(System.in).nextInt();
             MENU menu = MENU.getEnumMenu(menuOp);
             switch (menu){
@@ -40,22 +43,17 @@ public class Manager {
                     break;
 
                 case SHOW_STUDENT:
-                    showStudent();
+                    view.showStudent(this.school);
                     break;
 
                 case SHOW_AGE:
-                    System.out.println("Please enter age of student you want to show: ");
-                    int age = new Scanner(System.in).nextInt();
+                    int age = view.inputAge();
                     showStudentAge(age);
                     break;
 
                 case COUNT_AGE_HOMETOWN:
-                    System.out.println("Please enter age and hometown of student you want to count: ");
-                    System.out.println("Age: ");
-                    int age1 = new Scanner(System.in).nextInt();
-
-                    System.out.println("Hometown: ");
-                    String homeTown = new Scanner(System.in).nextLine();
+                    int age1 = view.inputAge();
+                    String homeTown = view.inputHomeTown();
 
                     countStudentAgeHomeTown(age1,homeTown);
                     break;
@@ -66,18 +64,6 @@ public class Manager {
 
             }
         }
-    }
-
-    /*********************************
-     *            printMenu        *
-     *********************************/
-    public void printMenu(){
-        System.out.println("Menu:");
-        System.out.println("\t1: Add Student");
-        System.out.println("\t2: Show Student");
-        System.out.println("\t3: Show Student by age");
-        System.out.println("\t4: Count Student by age and hometown");
-        System.out.println("\t5: Exit");
     }
 
     /*********************************
@@ -99,39 +85,14 @@ public class Manager {
     }
 
     public void addStudent() {
-        System.out.println("Please enter information of student you want to add");
-        System.out.println("Full name: ");
-        String fullName = new Scanner(System.in).nextLine();
-
-        System.out.println("Age: ");
-        int age = new Scanner(System.in).nextInt();
-
-        System.out.println("Home town: ");
-        String homeTown = new Scanner(System.in).nextLine();
-
-        System.out.println("Class: ");
-        String classs = new Scanner(System.in).nextLine();
-
-        Student student = new Student(fullName,age,homeTown,classs);
+        Student student = view.addStudent();
         checkClass(student);
-    }
-
-    /*********************************
-     *           showStudent         *
-     *********************************/
-    public void showStudent() {
-        for (Classs item : this.school.getSchoolList()) {
-            System.out.println("Class " + item.getClassName());
-            item.getClassList().forEach(Student::showInfor);
-            System.out.println("--------------------------------------------------------");
-        }
     }
 
     /*********************************
      *         showStudentAge        *
      *********************************/
     public void showStudentAge(int age) {
-        System.out.println("Student are " + age + " years old:");
         int sum = 0;
         for (Classs classs : this.school.getSchoolList()) {
             ArrayList<Student> listAge = (ArrayList<Student>) classs.getClassList()
@@ -140,13 +101,11 @@ public class Manager {
 
             Optional<Student> check = listAge.stream().findFirst();
             if (check.isPresent()) {
-                System.out.println("Class " + classs.getClassName() + ": " + listAge.size() + " students");
-                listAge.forEach(Student::showInfor);
-                System.out.println("--------------------------------------------------------");
+                view.showStudentAge(classs,listAge);
                 sum += listAge.size();
             }
         }
-        System.out.println("In all, there are " + sum + " students " + age + " years old.");
+        view.showCountedStudent(age,sum);
     }
 
     /*********************************
@@ -165,6 +124,6 @@ public class Manager {
                 sum += listAge.size();
             }
         }
-        System.out.println("In all, there are " + sum + " students " + age + " years old, home town " + homeTown);
+        view.showCountedStudent(age,homeTown,sum);
     }
 }

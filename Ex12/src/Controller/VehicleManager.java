@@ -13,17 +13,20 @@ import java.util.Set;
 import View.MENU;
 import View.SEARCH;
 import View.VEHICLE;
+import View.View;
 
 public class VehicleManager {
     /**********************************
      *            Attribute           *
      **********************************/
     private Set<Vehicle> vehicleSet;
+    private View view;
 
     /*********************************
      *            Constructor        *
      *********************************/
     public VehicleManager() {
+        this.view = new View();
         this.vehicleSet = new LinkedHashSet<>();
     }
 
@@ -34,7 +37,7 @@ public class VehicleManager {
         int menuOp;
         boolean condition = true;
         while (condition){
-            printMenu();
+            view.printMenu();
             menuOp = new Scanner(System.in).nextInt();
             MENU menu = MENU.getEnumMenu(menuOp);
             switch (menu){
@@ -59,17 +62,6 @@ public class VehicleManager {
     }
 
     /*********************************
-     *            printMenu          *
-     *********************************/
-    public void printMenu(){
-        System.out.println("Menu:");
-        System.out.println("\t1: Add vehicle");
-        System.out.println("\t2: Delete vehicle");
-        System.out.println("\t3: Search vehicle");
-        System.out.println("\t4: Exit");
-    }
-
-    /*********************************
      *            addBill            *
      *********************************/
     public void checkID(Vehicle vehicle) {
@@ -78,10 +70,7 @@ public class VehicleManager {
                 .findFirst();
 
         if (check.isPresent()) {
-            System.out.println("This ID already exists!");
-            System.out.println("Do you want to replace?");
-            System.out.println("\t1: YES");
-            System.out.println("\t2: NO");
+            view.printReplaceOption();
             int option = new Scanner(System.in).nextInt();
 
             switch (option) {
@@ -95,46 +84,17 @@ public class VehicleManager {
         this.vehicleSet.add(vehicle);
     }
 
-    public Vehicle subAdd() {
-        System.out.println("ID: ");
-        String ID = new Scanner(System.in).nextLine();
-
-        System.out.println("Brand: ");
-        String brand = new Scanner(System.in).nextLine();
-
-        System.out.println("Year of Production: ");
-        int productionYear = new Scanner(System.in).nextInt();
-
-        System.out.println("Cost($): ");
-        int cost = new Scanner(System.in).nextInt();
-
-        System.out.println("Color: ");
-        String color = new Scanner(System.in).nextLine();
-
-        return new Vehicle(ID,brand,productionYear,cost,color);
-    }
-
-    public void printVehicleMenu() {
-        System.out.println("What type of vehicle do you want to add:");
-        System.out.println("\t1: Car");
-        System.out.println("\t2: Motor");
-        System.out.println("\t3: Truck");
-    }
-
     public void addVehicle() {
-        printVehicleMenu();
+        view.printVehicleMenu();
         int vehicleOpt = new Scanner(System.in).nextInt();
         VEHICLE opt = VEHICLE.getEnumVehicle(vehicleOpt);
 
-        Vehicle vehicle = subAdd();
+        Vehicle vehicle = view.createVehicle();
 
         switch (opt) {
             case CAR:
-                System.out.println("Number of seat: ");
-                int seatNumber = new Scanner(System.in).nextInt();
-
-                System.out.println("Type of engine: ");
-                String engineType = new Scanner(System.in).nextLine();
+                int seatNumber = view.inputSeatNumber();
+                String engineType = view.inputEngineType();
 
                 Vehicle car = new Car(vehicle.getID(), vehicle.getBrand(),
                         vehicle.getProductionYear(), vehicle.getCost(),
@@ -143,8 +103,7 @@ public class VehicleManager {
                 break;
 
             case MOTOR:
-                System.out.println("Power: ");
-                int power = new Scanner(System.in).nextInt();
+                int power = view.inputPower();
 
                 Vehicle motor = new Motor(vehicle.getID(), vehicle.getBrand(),
                         vehicle.getProductionYear(), vehicle.getCost(),
@@ -153,8 +112,7 @@ public class VehicleManager {
                 break;
 
             case TRUCK:
-                System.out.println("Gross ton: ");
-                int grossTon = new Scanner(System.in).nextInt();
+                int grossTon = view.inputGrossTon();
 
                 Vehicle truck = new Truck(vehicle.getID(), vehicle.getBrand(),
                         vehicle.getProductionYear(), vehicle.getCost(),
@@ -168,8 +126,7 @@ public class VehicleManager {
      *          deleteVehicle        *
      *********************************/
     public void deleteVehicle() {
-        System.out.println("Please enter ID of vehicle you want to add: ");
-        String ID = new Scanner(System.in).nextLine();
+        String ID = view.inputID();
 
         Optional<Vehicle> check = this.vehicleSet.stream()
                 .filter(item -> item.equals(new Vehicle(ID)))
@@ -177,7 +134,7 @@ public class VehicleManager {
         if (check.isPresent())
             this.vehicleSet.remove(check.get());
         else
-            System.out.println("This vehicle don't exists!");
+            view.showNoExistVehicle();
     }
 
     /*********************************
@@ -188,7 +145,7 @@ public class VehicleManager {
                 .filter(item -> item.getBrand().contains(brand))
                 .collect(Collectors.toSet());
         if (vehicleList.isEmpty()) {
-            System.out.println("Thera isn't vehicle of this brand!");
+            view.showNoExistVehicle();
         }else
             vehicleList.forEach(Vehicle::showInfor);
     }
@@ -198,29 +155,25 @@ public class VehicleManager {
                 .filter(item -> item.getColor().contains(color))
                 .collect(Collectors.toSet());
         if (vehicleList.isEmpty()) {
-            System.out.println("Thera isn't vehicle of this color!");
+            view.showNoExistVehicle();
         }else
             vehicleList.forEach(Vehicle::showInfor);
     }
 
     public void searchVehicle() {
-        System.out.println("What do you want to search by?");
-        System.out.println("\t1: Brand");
-        System.out.println("\t2: Color");
+        view.showSearchOption();
 
         int searchOpt = new Scanner(System.in).nextInt();
         SEARCH opt = SEARCH.getEnumSEARCH(searchOpt);
 
         switch (opt) {
             case BRAND:
-                System.out.println("What brand do you want to search?");
-                String brand = new Scanner(System.in).nextLine();
+                String brand = view.inputBrand();
                 searchBrand(brand);
                 break;
 
             case COLOR:
-                System.out.println("What color do you want to search?");
-                String color = new Scanner(System.in).nextLine();
+                String color = view.inputColor();
                 searchColor(color);
                 break;
         }

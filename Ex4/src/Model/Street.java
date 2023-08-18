@@ -1,5 +1,7 @@
 package Model;
 
+import View.View;
+
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -9,11 +11,13 @@ public class Street {
      *            Attribute           *
      **********************************/
     private Set<Family> street;
+    private View view;
 
     /*********************************
      *            Constructor        *
      *********************************/
     public Street() {
+        this.view = new View();
         this.street = new LinkedHashSet<>();
     }
 
@@ -23,10 +27,7 @@ public class Street {
     public void checkApartmentNumber(Family family) {
         for (Family item : this.street) {
             if (item.equals(family)) {
-                System.out.println("This apartment number already exists!");
-                System.out.println("Do you want to replace?");
-                System.out.println("\t1: YES");
-                System.out.println("\t2: NO");
+                view.showReplaceOption();
                 int option = new Scanner(System.in).nextInt();
 
                 switch (option) {
@@ -41,12 +42,8 @@ public class Street {
     }
 
     public void addFamily() {
-        System.out.println("Please enter information about the family");
-        System.out.println("\tNumber of Member: ");
-        int numberMember = new Scanner(System.in).nextInt();
-
-        System.out.println("\tApartment Number: ");
-        String apartmentNumber = new Scanner(System.in).nextLine();
+        int numberMember = view.inputNumberMember();
+        String apartmentNumber = view.inputApartmentNumber();
 
         Family family = new Family(numberMember,apartmentNumber);
         family.addMember();

@@ -13,17 +13,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import View.MENU;
+import View.View;
 
 public class Manager {
     /**********************************
      *            Attribute           *
      **********************************/
     private Set<Employee> employeeSet;
+    private View view;
 
     /*********************************
      *            Constructor        *
      *********************************/
     public Manager(Set<Employee> employeeSet) {
+        this.view = new View();
         this.employeeSet = employeeSet;
     }
 
@@ -34,7 +37,7 @@ public class Manager {
         int menuOp;
         boolean condition = true;
         while (condition){
-            printMenu();
+            view.printMenu();
             menuOp = new Scanner(System.in).nextInt();
             MENU menu = MENU.getEnumMenu(menuOp);
             switch (menu){
@@ -62,26 +65,7 @@ public class Manager {
         }
     }
 
-    /*********************************
-     *            printMenu          *
-     *********************************/
-    public void printMenu(){
-        System.out.println("Menu:");
-        System.out.println("\t1: Add employee");
-        System.out.println("\t2: Delete employee");
-        System.out.println("\t3: Modify employees information");
-        System.out.println("\t4: Search employee");
-        System.out.println("\t5: Exit");
-    }
 
-    /*********************************
-     *      printEmployeeOption      *
-     *********************************/
-    public void printEmployeeOption() {
-        System.out.println("\t1: Experience");
-        System.out.println("\t2: Fresher");
-        System.out.println("\t3: Intern");
-    }
 
     /*********************************
      *            addBill            *
@@ -92,10 +76,7 @@ public class Manager {
                 .findFirst();
 
         if (check.isPresent()) {
-            System.out.println("This ID already exists!");
-            System.out.println("Do you want to replace?");
-            System.out.println("\t1: YES");
-            System.out.println("\t2: NO");
+            view.printReplaceOption();
             int option = new Scanner(System.in).nextInt();
 
             switch (option) {
@@ -110,70 +91,43 @@ public class Manager {
     }
 
     public void addEmployee() throws BirthDayException, PhoneException, EmailException {
-        System.out.println("Type of employee you want to add:");
-        printEmployeeOption();
+        view.printEmployeeOption();
         int employeeOption = new Scanner(System.in).nextInt();
         EMPLOYEE opt = EMPLOYEE.getEnumEmployee(employeeOption);
 
-        System.out.println("ID: ");
-        String ID = new Scanner(System.in).nextLine();
-
-        System.out.println("Full name: ");
-        String fullName = new Scanner(System.in).nextLine();
-
-        System.out.println("Birthday: ");
-        String birthDay = new Scanner(System.in).nextLine();
-        Check.checkDate(birthDay);
-
-        System.out.println("Phone: ");
-        int phone = new Scanner(System.in).nextInt();
-        Check.checkPhone(phone);
-
-        System.out.println("Email: ");
-        String email = new Scanner(System.in).nextLine();
-        Check.checkEmail(email);
+        Employee employee = view.createEmployee();
 
         switch (opt) {
             case EXPERIENCE:
-                System.out.println("Number years of experience: ");
-                int expInYear = new Scanner(System.in).nextInt();
+                int expInYear = view.inputExpInYear();
+                String proSkill = view.inputProSkill();
 
-                System.out.println("Pro skill: ");
-                String proSkill = new Scanner(System.in).nextLine();
-
-                Employee experience = new Experience(ID,fullName,birthDay,phone,email,EMPLOYEE.getString(EMPLOYEE.EXPERIENCE),
+                Employee experience = new Experience(employee.getID(), employee.getFullName(), employee.getBirthDay(),
+                                                     employee.getPhone(), employee.getEmail(), EMPLOYEE.getString(EMPLOYEE.EXPERIENCE),
                                                      expInYear,proSkill);
                 experience.addCertificate();
                 checkID(experience);
                 break;
 
             case FRESHER:
-                System.out.println("Graduation date: ");
-                String graduationDate = new Scanner(System.in).nextLine();
+                String graduationDate = view.inputGraduationDate();
+                String graduationRank = view.inputGraduationRank();
+                String education = view.inputEducation();
 
-                System.out.println("Graduation rank: ");
-                String graduationRank = new Scanner(System.in).nextLine();
-
-                System.out.println("Education: ");
-                String education = new Scanner(System.in).nextLine();
-
-                Employee fresher = new Fresher(ID,fullName,birthDay,phone,email,EMPLOYEE.getString(EMPLOYEE.FRESHER),
+                Employee fresher = new Fresher(employee.getID(), employee.getFullName(), employee.getBirthDay(),
+                                               employee.getPhone(), employee.getEmail(), EMPLOYEE.getString(EMPLOYEE.FRESHER),
                                                graduationDate,graduationRank,education);
                 fresher.addCertificate();
                 checkID(fresher);
                 break;
 
             case INTERN:
-                System.out.println("Majors: ");
-                String majors = new Scanner(System.in).nextLine();
+                String majors = view.inputMajors();
+                int semester = view.inputSemester();
+                String university = view.inputUniversity();
 
-                System.out.println("Semester: ");
-                int semester = new Scanner(System.in).nextInt();
-
-                System.out.println("University: ");
-                String university = new Scanner(System.in).nextLine();
-
-                Employee intern = new Intern(ID,fullName,birthDay,phone,email,EMPLOYEE.getString(EMPLOYEE.INTERN),
+                Employee intern = new Intern(employee.getID(), employee.getFullName(), employee.getBirthDay(),
+                                             employee.getPhone(), employee.getEmail(),EMPLOYEE.getString(EMPLOYEE.INTERN),
                                              majors,semester,university);
                 intern.addCertificate();
                 checkID(intern);
@@ -184,8 +138,7 @@ public class Manager {
      *          deleteEmployee       *
      *********************************/
     public void deleteEmployee() {
-        System.out.println("Please enter ID of employee you want to delete: ");
-        String ID = new Scanner(System.in).nextLine();
+        String ID = view.inputID();
 
         Optional<Employee> check = this.employeeSet.stream().filter(item -> item.equals(new Employee(ID))).findFirst();
         if (check.isPresent()) {
@@ -193,21 +146,20 @@ public class Manager {
             Employee.employeeCount--;
         }
         else
-            System.out.println("This ID don't exist!");
+            view.showNoExistID();
     }
 
     /*********************************
      *          modifyEmployee       *
      *********************************/
     public void modifyEmployee() {
-        System.out.println("Please enter ID of employee you want to modify: ");
-        String ID = new Scanner(System.in).nextLine();
+        String ID = view.inputID();
 
         Optional<Employee> check = this.employeeSet.stream().filter(item -> item.equals(new Employee(ID))).findFirst();
         if (check.isPresent())
             check.get().modifyInfor();
         else
-            System.out.println("This ID don't exist!");
+            view.showNoExistID();
     }
 
     /*********************************
@@ -217,17 +169,11 @@ public class Manager {
         Set<Employee> searchList = this.employeeSet.stream()
                 .filter(item -> item.getEmployeeType().contains(employeeType))
                 .collect(Collectors.toSet());
-        if (searchList.isEmpty())
-            System.out.println("Don't exist " + employeeType + " employee!");
-        else {
-            System.out.println(employeeType + " employee:");
-            searchList.forEach(Employee::showInfor);
-        }
+        view.showSearchedEmployee(employeeType,searchList);
     }
 
     public void searchEmployee() {
-        System.out.println("Type of employee you want to search:");
-        printEmployeeOption();
+        view.printEmployeeOption();
         int employeeOption = new Scanner(System.in).nextInt();
 
         EMPLOYEE opt = EMPLOYEE.getEnumEmployee(employeeOption);

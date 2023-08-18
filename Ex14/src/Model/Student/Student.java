@@ -11,9 +11,19 @@ public class Student {
     private String university;
     private String gradeLevel;
 
+    public Student(String fullName, String doB, String sex, String phoneNumber, String university) {
+        this.fullName = fullName;
+        this.doB = doB;
+        this.sex = sex;
+        this.phoneNumber = phoneNumber;
+        this.university = university;
+    }
+
     /*********************************
      *            Constructor        *
      *********************************/
+
+
     public Student(String fullName, String doB, String sex, String phoneNumber, String university, String gradeLevel) {
         this.fullName = fullName;
         this.doB = doB;

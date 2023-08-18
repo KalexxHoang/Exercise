@@ -1,5 +1,7 @@
 package Model;
 
+import View.View;
+
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Scanner;
@@ -10,11 +12,13 @@ public class Hotel {
      *            Attribute           *
      **********************************/
     private Set<Person> hotel;
+    private View view;
 
     /*********************************
      *            Constructor        *
      *********************************/
     public Hotel() {
+        this.view = new View();
         this.hotel = new LinkedHashSet<>();
     }
 
@@ -24,10 +28,7 @@ public class Hotel {
     public void addPerson(Person person) {
         Optional<Person> check = this.hotel.stream().filter(item -> item.equals(person)).findFirst();
         if (check.isPresent()) {
-            System.out.println("This person already exists!");
-            System.out.println("Do you want to replace?");
-            System.out.println("\t1: YES");
-            System.out.println("\t2: NO");
+            view.showReplaceOption();
             int option = new Scanner(System.in).nextInt();
 
             switch (option) {
@@ -60,9 +61,6 @@ public class Hotel {
      *********************************/
     public void computeRent(int CCCD) {
         Optional<Person> check = this.hotel.stream().filter(item -> item.equals(new Person(CCCD))).findFirst();
-        if (check.isPresent())
-            System.out.println("Your rent: " + check.get().computeRent() + "$");
-        else
-            System.out.println("Cannot find person!");
+        view.showRent(check);
     }
 }

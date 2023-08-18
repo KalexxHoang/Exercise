@@ -27,6 +27,14 @@ public class Employee {
         this.ID = ID;
     }
 
+    public Employee(String ID, String fullName, String birthDay, int phone, String email) {
+        this.ID = ID;
+        this.fullName = fullName;
+        this.birthDay = birthDay;
+        this.phone = phone;
+        this.email = email;
+    }
+
     public Employee(String ID, String fullName, String birthDay, int phone, String email, String employeeType) {
         this.ID = ID;
         this.fullName = fullName;

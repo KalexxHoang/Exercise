@@ -10,17 +10,20 @@ import java.util.Set;
 
 import Model.Student;
 import View.MENU;
+import View.View;
 
 public class Manager {
     /**********************************
      *            Attribute           *
      **********************************/
     private Set<Card> cardList;
+    private View view;
 
     /*********************************
      *            Constructor        *
      *********************************/
     public Manager() {
+        this.view = new View();
         this.cardList = new LinkedHashSet<>();
     }
 
@@ -31,7 +34,7 @@ public class Manager {
         int menuOp;
         boolean condition = true;
         while (condition){
-            printMenu();
+            view.printMenu();
             menuOp = new Scanner(System.in).nextInt();
             MENU menu = MENU.getEnumMenu(menuOp);
             switch (menu){
@@ -56,17 +59,6 @@ public class Manager {
     }
 
     /*********************************
-     *            printMenu          *
-     *********************************/
-    public void printMenu(){
-        System.out.println("Menu:");
-        System.out.println("\t1: Add Borrow note");
-        System.out.println("\t2: Delete Borrow note");
-        System.out.println("\t3: Show Card information");
-        System.out.println("\t4: Exit");
-    }
-
-    /*********************************
      *            addNote            *
      *********************************/
     public void checkCardID(String cardID, BorrowNote borrowNote) {
@@ -77,18 +69,9 @@ public class Manager {
         if (check.isPresent()) {
             check.get().addNote(borrowNote);
         }else {
-            System.out.println("This card don't exists!");
-            System.out.println("You need to create a new card. Please enter information about this card:");
-            System.out.println("Full name: ");
-            String fullName = new Scanner(System.in).nextLine();
+            view.showNoExistCard();
 
-            System.out.println("Age: ");
-            int age = new Scanner(System.in).nextInt();
-
-            System.out.println("Class: ");
-            String classs = new Scanner(System.in).nextLine();
-
-            Student student = new Student(fullName,age,classs);
+            Student student = view.createStudent();
             Card card = new Card(cardID,student);
 
             card.addNote(borrowNote);
@@ -97,23 +80,9 @@ public class Manager {
     }
 
     public void addNote() {
-        System.out.println("Please enter borrow note you want to add: ");
-        System.out.println("Card ID: ");
-        String cardID = new Scanner(System.in).nextLine();
+        String cardID = view.inputCardID();
 
-        System.out.println("Borrow code: ");
-        String borrowCode = new Scanner(System.in).nextLine();
-
-        System.out.println("Borrow day: ");
-        int borrowDay = new Scanner(System.in).nextInt();
-
-        System.out.println("Deadline: ");
-        int deadLine = new Scanner(System.in).nextInt();
-
-        System.out.println("Book ID: ");
-        String bookID = new Scanner(System.in).nextLine();
-
-        BorrowNote borrowNote = new BorrowNote(borrowCode,borrowDay,deadLine,bookID);
+        BorrowNote borrowNote = view.createNote();
         checkCardID(cardID,borrowNote);
     }
 
@@ -121,8 +90,7 @@ public class Manager {
      *           deleteNote          *
      *********************************/
     public void deleteNote() {
-        System.out.println("Please enter borrow code you want to delete: ");
-        String borrowCode = new Scanner(System.in).nextLine();
+        String borrowCode = view.inputBorrowCode();
 
         this.cardList.forEach(item -> item.deleteNote(borrowCode));
     }

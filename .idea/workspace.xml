@@ -1,47 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="25c0f91c-6b6a-47e3-9122-e62ec20118d4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Ex10/Ex10.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex11/Ex11.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex12/Ex12.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex13/Ex13.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex14/Ex14.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex15/Ex15.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex2/Ex2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex3/Ex3.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex4/Ex4.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex5/Ex5.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex6/Ex6.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex7/Ex7.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex8/Ex8.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex9/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Ex9/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex9/Ex9.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex9/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex9/src/Controller/Manager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex12/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex13/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex14/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex15/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex4/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex5/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex6/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex7/src/View/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ex8/src/View/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex12/src/Controller/VehicleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex12/src/Controller/VehicleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex13/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex13/src/Controller/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex13/src/Model/Employee/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex13/src/Model/Employee/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex14/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex14/src/Controller/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex14/src/Model/Student/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex14/src/Model/Student/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex15/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex15/src/Controller/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex4/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex4/src/Controller/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex4/src/Model/Street.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex4/src/Model/Street.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex5/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex5/src/Controller/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex5/src/Model/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex5/src/Model/Hotel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex6/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex6/src/Controller/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex7/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex7/src/Controller/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex8/src/Controller/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex8/src/Controller/Manager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2U8eUBBwEJoFxStZLDLeYOYo4NF" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
